@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nova Web — Sites web pour les restaurants indépendants de Lyon</title>
+  <meta name="description" content="Nova Web conçoit des sites web sur-mesure pour les restaurants indépendants de Lyon. Trois formules à prix fixe, de 490 € à 1 490 €, livrées en une semaine en général.">
+  <meta name="theme-color" content="#101010">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nova Web — Sites web pour les restaurants indépendants de Lyon">
+  <meta property="og:description" content="Des sites rapides et sur-mesure pour les restaurants lyonnais. De 490 € à 1 490 €, livrés en une semaine en général.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101010'/%3E%3Cg fill='none' stroke-width='1.6' stroke-linejoin='round'%3E%3Cpath stroke='%23ff2a2a' d='M15 6l8.66 5v10L15 26l-8.66-5V11zM6.34 11 15 16l8.66-5M15 16v10'/%3E%3Cpath stroke='%232a7fff' d='M17 6l8.66 5v10L17 26l-8.66-5V11zM8.34 11 17 16l8.66-5M17 16v10'/%3E%3Cpath stroke='%23fffdf9' d='M16 6l8.66 5v10L16 26l-8.66-5V11zM7.34 11 16 16l8.66-5M16 16v10'/%3E%3C/g%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <!-- Typo : « Neue Montreal » est utilisée en priorité si vous ajoutez sa licence (@font-face) ; sinon Inter Tight prend le relais. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    document.documentElement.classList.add('js');
+    /* Filet de sécurité : si les scripts ne se chargent pas, on retire l'écran de chargement. */
+    window.__loaderFallback = setTimeout(function () { document.documentElement.classList.add('is-ready', 'no-anim'); }, 8000);
+  </script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <!-- Pictos (sprite) -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="i-cube" viewBox="0 0 32 32"><path d="M16 6l8.66 5v10L16 26l-8.66-5V11zM7.34 11 16 16l8.66-5M16 16v10"/></symbol>
+    <symbol id="i-strat" viewBox="0 0 100 100"><circle cx="50" cy="50" r="36"/><circle cx="50" cy="50" r="22"/><circle cx="50" cy="50" r="8"/><path d="M50 6v16M50 78v16M6 50h16M78 50h16"/></symbol>
+    <symbol id="i-design" viewBox="0 0 100 100"><rect x="14" y="18" width="72" height="64" rx="5"/><path d="M14 32h72"/><rect x="24" y="42" width="24" height="30" rx="2"/><path d="M58 44h18M58 54h18M58 64h11"/></symbol>
+    <symbol id="i-code" viewBox="0 0 100 100"><path d="M36 30 16 50l20 20M64 30l20 20-20 20M56 22 44 78"/></symbol>
+    <symbol id="i-seo" viewBox="0 0 100 100"><path d="M14 84h72M14 84V16"/><path d="M22 70l16-15 13 10 27-29"/><path d="M64 36h14v14"/></symbol>
+    <symbol id="i-care" viewBox="0 0 100 100"><path d="M80 50a30 30 0 1 1-8.8-21.2"/><path d="M72 14v15H57"/><path d="M37 51l9 9 18-19"/></symbol>
+  </svg>
+
+  <!-- ================= ÉCRAN DE CHARGEMENT ================= -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__top">
+      <span class="loader__brand">
+        <svg class="glyph" viewBox="0 0 32 32"><use href="#i-cube" class="ch ch--r"/><use href="#i-cube" class="ch ch--g"/><use href="#i-cube" class="ch ch--b"/></svg>
+        Nova Web
+      </span>
+      <span class="loader__note">Sites web pour restaurants — Lyon</span>
+    </div>
+    <div class="loader__bottom">
+      <p class="loader__caption">Mise au point<br>de la lumière…</p>
+      <div class="loader__count"><span class="loader__num">0</span></div>
+    </div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <!-- ================= COUCHES GLOBALES ================= -->
+  <canvas class="prism" aria-hidden="true"></canvas>
+  <div class="prism-fallback" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__ring"><span class="cursor__label"></span></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <div class="hover-card" aria-hidden="true">
+    <div class="hover-card__inner">
+      <span class="hover-card__index">Nova Web / Expertise</span>
+      <div class="hover-card__icons">
+        <svg class="hover-card__icon is-active" viewBox="0 0 100 100"><use href="#i-strat" class="ch ch--r"/><use href="#i-strat" class="ch ch--g"/><use href="#i-strat" class="ch ch--b"/></svg>
+        <svg class="hover-card__icon" viewBox="0 0 100 100"><use href="#i-design" class="ch ch--r"/><use href="#i-design" class="ch ch--g"/><use href="#i-design" class="ch ch--b"/></svg>
+        <svg class="hover-card__icon" viewBox="0 0 100 100"><use href="#i-code" class="ch ch--r"/><use href="#i-code" class="ch ch--g"/><use href="#i-code" class="ch ch--b"/></svg>
+        <svg class="hover-card__icon" viewBox="0 0 100 100"><use href="#i-seo" class="ch ch--r"/><use href="#i-seo" class="ch ch--g"/><use href="#i-seo" class="ch ch--b"/></svg>
+        <svg class="hover-card__icon" viewBox="0 0 100 100"><use href="#i-care" class="ch ch--r"/><use href="#i-care" class="ch ch--g"/><use href="#i-care" class="ch ch--b"/></svg>
+      </div>
+      <span class="hover-card__label">Stratégie</span>
+    </div>
+  </div>
+
+  <!-- Fenêtre d'aperçu : site exemple (ordinateur / mobile) et prise de rendez-vous Calendly -->
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="viewer-title" hidden data-lenis-prevent>
+    <div class="viewer__backdrop" data-close></div>
+    <div class="viewer__panel">
+      <div class="viewer__bar">
+        <p class="viewer__title" id="viewer-title">Aperçu</p>
+        <div class="viewer__devices" role="group" aria-label="Format d’affichage">
+          <button class="viewer__device is-active" type="button" data-device="desktop" aria-pressed="true">Ordinateur</button>
+          <button class="viewer__device" type="button" data-device="mobile" aria-pressed="false">Mobile</button>
+        </div>
+        <a class="btn btn--outline viewer__open" href="#" target="_blank" rel="noopener">Nouvel onglet ↗</a>
+        <button class="viewer__close" type="button" data-close>Fermer ✕</button>
+      </div>
+      <div class="viewer__stage" data-device="desktop">
+        <span class="viewer__loading">Chargement…</span>
+        <iframe class="viewer__frame" title="Aperçu" src="about:blank"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NAVIGATION ================= -->
+  <header class="nav">
+    <a class="nav__logo" href="#top" aria-label="Nova Web — retour en haut">
+      <svg class="glyph" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-cube" class="ch ch--r"/><use href="#i-cube" class="ch ch--g"/><use href="#i-cube" class="ch ch--b"/></svg>
+      <span>Nova Web</span>
+    </a>
+    <p class="nav__clock"><span>Lyon</span> <time class="js-clock">--:--</time></p>
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="#expertise" data-roll>Expertise</a>
+      <a href="#projets" data-roll>Projets</a>
+      <a href="#methode" data-roll>Méthode</a>
+      <a href="#offres" data-roll>Offres</a>
+    </nav>
+    <a class="btn btn--outline nav__cta" href="#contact" data-magnetic><span data-roll>Contact</span></a>
+    <button class="nav__burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">
+      <span class="nav__burger-label">Menu</span>
+      <span class="nav__burger-lines" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </header>
+
+  <div class="menu" id="menu">
+    <div class="menu__inner wrap">
+      <nav class="menu__links" aria-label="Menu mobile">
+        <a href="#expertise" style="--i:0"><span class="menu__idx">01</span><span class="menu__label">Expertise</span></a>
+        <a href="#projets" style="--i:1"><span class="menu__idx">02</span><span class="menu__label">Projets</span></a>
+        <a href="#methode" style="--i:2"><span class="menu__idx">03</span><span class="menu__label">Méthode</span></a>
+        <a href="#offres" style="--i:3"><span class="menu__idx">04</span><span class="menu__label">Offres</span></a>
+        <a href="#contact" style="--i:4"><span class="menu__idx">05</span><span class="menu__label">Contact</span></a>
+      </nav>
+      <div class="menu__foot">
+        <a href="mailto:maisonnovadigital@gmail.com">maisonnovadigital@gmail.com</a>
+        <a href="https://wa.me/33743664343" target="_blank" rel="noopener">WhatsApp : 07 43 66 43 43</a>
+        <span>Lyon — <time class="js-clock">--:--</time></span>
+      </div>
+    </div>
+  </div>
+
+  <main id="contenu">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__inner wrap">
+        <div class="hero__meta">
+          <span class="eyebrow" data-intro>Agence web — Lyon</span>
+          <span class="eyebrow eyebrow--muted" data-intro>Stratégie · Design · Code · SEO</span>
+        </div>
+
+        <h1 class="hero__title" id="hero-title">
+          <span class="sr-only">Des sites web qui font la différence.</span>
+          <span class="hero__line hero__line--a" aria-hidden="true" data-split>Des sites web</span>
+          <span class="hero__line hero__line--b" aria-hidden="true" data-split>qui font</span>
+          <span class="hero__line hero__line--c" aria-hidden="true">
+            <span class="rotator">
+              <span class="rotator__word is-active">vendre.</span>
+              <span class="rotator__word">rêver.</span>
+              <span class="rotator__word">grandir.</span>
+              <span class="rotator__word">la différence.</span>
+            </span>
+          </span>
+        </h1>
+
+        <div class="hero__bottom">
+          <p class="hero__lead" data-intro>Nova Web conçoit, développe et fait grandir les sites des restaurants indépendants de Lyon qui veulent être vus&nbsp;— et choisis.</p>
+          <div class="hero__aside" data-intro>
+            <span class="tag"><i class="tag__dot" aria-hidden="true"></i>Ouvert aux nouveaux projets</span>
+            <a class="scroll-cue" href="#manifeste"><span>Défiler</span><i aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="content">
+
+      <!-- ================= BANDEAU DÉFILANT ================= -->
+      <section class="marquee" aria-label="Nos savoir-faire">
+        <div class="marquee__row">
+          <div class="marquee__track">
+            <div class="marquee__group">
+              <span>Sites vitrines</span><svg class="spark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-cube" class="ch ch--r"/><use href="#i-cube" class="ch ch--g"/><use href="#i-cube" class="ch ch--b"/></svg>
+              <span class="is-outline">E-commerce</span><svg class="spark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-cube" class="ch ch--r"/><use href="#i-cube" class="ch ch--g"/><use href="#i-cube" class="ch ch--b"/></svg>
+              <span>Refonte</span><svg class="spark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-cube" class="ch ch--r"/><use href="#i-cube" class="ch ch--g"/><use href="#i-cube" class="ch ch--b"/></svg>
+              <span class="is-outline">Landing pages</span><svg class="spark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-cube" class="ch ch--r"/><use href="#i-cube" class="ch ch--g"/><use href="#i-cube" class="ch ch--b"/></svg>
+              <span>SEO</span><svg class="spark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-cube" class="ch ch--r"/><use href="#i-cube" class="ch ch--g"/><use href="#i-cube" class="ch ch--b"/></svg>
+              <span class="is-outline">Maintenance</span><svg class="spark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-cube" class="ch ch--r"/><use href="#i-cube" class="ch ch--g"/><use href="#i-cube" class="ch ch--b"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="marquee__row marquee__row--rev">
+          <div class="marquee__track">
+            <div class="marquee__group">
+              <span>Webflow</span><i>/</i><span>Shopify</span><i>/</i><span>WordPress</span><i>/</i><span>Next.js</span><i>/</i><span>Figma</span><i>/</i><span>GSAP</span><i>/</i><span>Three.js</span><i>/</i><span>Framer</span><i>/</i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= MANIFESTE ================= -->
+      <section class="manifesto wrap" id="manifeste" aria-labelledby="manifeste-title">
+        <div class="manifesto__aside">
+          <span class="eyebrow"><b>(01)</b>Manifeste</span>
+          <h2 class="section-intro" id="manifeste-title" data-reveal="fade">Faire de votre site votre meilleur commercial est notre unique obsession.</h2>
+        </div>
+        <div class="manifesto__body">
+          <p class="manifesto__text" data-scrub>Un beau site ne suffit plus. Le vôtre doit charger en un éclair, raconter votre histoire en trois secondes et transformer chaque visite en opportunité. Nous réunissons stratégie, design et code pour livrer des sites qui travaillent pour vous, jour et nuit.</p>
+          <a class="link" href="#methode" data-reveal="fade"><span data-roll>Découvrir notre méthode</span><span class="link__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <!-- ================= EXPERTISE ================= -->
+      <section class="expertise wrap" id="expertise" aria-labelledby="expertise-title">
+        <header class="head head--row">
+          <div class="head__main">
+            <span class="eyebrow"><b>(02)</b>Expertise</span>
+            <h2 class="display-sm" id="expertise-title" data-reveal="words">Tout ce qu’il faut.<br>Rien de superflu.</h2>
+          </div>
+          <p class="head__aside" data-reveal="fade">Une équipe resserrée, cinq expertises complémentaires et un seul objectif&nbsp;: un site qui vous rapporte plus qu’il ne vous coûte.</p>
+        </header>
+
+        <ol class="services" data-stagger>
+          <li class="service" data-label="Stratégie">
+            <span class="service__num">01</span>
+            <h3 class="service__title">Stratégie digitale</h3>
+            <p class="service__desc">Audit, positionnement, arborescence et parcours de conversion. On pose les fondations avant de dessiner le moindre pixel.</p>
+            <span class="service__arrow" aria-hidden="true">↗</span>
+          </li>
+          <li class="service" data-label="Design">
+            <span class="service__num">02</span>
+            <h3 class="service__title">Design UI/UX</h3>
+            <p class="service__desc">Maquettes sur-mesure, design system et prototypes interactifs. Une interface qui vous ressemble, pensée pour vos clients.</p>
+            <span class="service__arrow" aria-hidden="true">↗</span>
+          </li>
+          <li class="service" data-label="Développement">
+            <span class="service__num">03</span>
+            <h3 class="service__title">Développement web</h3>
+            <p class="service__desc">Sites vitrines, e-commerce et applications&nbsp;: Webflow, Shopify, WordPress ou Next.js, selon ce qui sert le mieux votre projet.</p>
+            <span class="service__arrow" aria-hidden="true">↗</span>
+          </li>
+          <li class="service" data-label="Performance">
+            <span class="service__num">04</span>
+            <h3 class="service__title">SEO &amp; performance</h3>
+            <p class="service__desc">Référencement naturel, Core Web Vitals et analytics. Un site rapide, visible, et des décisions fondées sur la donnée.</p>
+            <span class="service__arrow" aria-hidden="true">↗</span>
+          </li>
+          <li class="service" data-label="Croissance">
+            <span class="service__num">05</span>
+            <h3 class="service__title">Maintenance &amp; croissance</h3>
+            <p class="service__desc">Hébergement, sauvegardes, mises à jour et évolutions continues. Votre site reste au sommet, mois après mois.</p>
+            <span class="service__arrow" aria-hidden="true">↗</span>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ================= PROJETS (défilement horizontal) ================= -->
+      <section class="work" id="projets" aria-labelledby="projets-title">
+        <div class="work__pin">
+          <div class="work__track">
+
+            <div class="work__intro">
+              <span class="eyebrow"><b>(03)</b>Projets</span>
+              <h2 class="display-sm" id="projets-title" data-reveal="words">Nos<br>réalisations</h2>
+              <p class="work__lead" data-reveal="fade">Survolez l’aperçu en direct, puis cliquez pour visiter le site, en version ordinateur ou mobile.</p>
+            </div>
+
+            <!-- Projet : site exemple, affiché en direct (iframe). Pour en ajouter un, dupliquez cet <article>. -->
+            <article class="project project--live" data-cursor-label="Visiter">
+              <div class="project__media">
+                <div class="browser" aria-hidden="true">
+                  <div class="browser__bar"><i></i><i></i><i></i><span>tranquil-scone-563e63.netlify.app</span><em class="browser__live"><i class="tag__dot"></i>En direct</em></div>
+                  <div class="browser__view">
+                    <div class="live">
+                      <iframe src="https://tranquil-scone-563e63.netlify.app/" title="Aperçu du site exemple" loading="lazy" tabindex="-1" scrolling="no" sandbox="allow-scripts allow-same-origin"></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="project__meta">
+                <h3 class="project__title">Site exemple · Restaurant</h3>
+                <span class="project__year">2026</span>
+              </div>
+              <p class="project__tags">Site vitrine · Design · Développement</p>
+              <p class="project__desc">Un site réalisé par Nova Web pour un restaurant. Cliquez pour le visiter en direct.</p>
+              <a class="project__hit" href="https://tranquil-scone-563e63.netlify.app/" target="_blank" rel="noopener" data-viewer data-viewer-devices data-viewer-title="Site exemple · Restaurant" aria-label="Visiter le site exemple"></a>
+            </article>
+
+            <!-- Carte d'appel à l'action -->
+            <a class="project project--cta" href="#brief" data-cursor-label="Démarrer">
+              <span class="cta-card">
+                <span class="eyebrow">Prochain lancement</span>
+                <span class="cta-card__title">Votre restaurant<br>ici&nbsp;?</span>
+                <span class="cta-card__foot"><span>Démarrer un brief</span><span class="cta-card__arrow" aria-hidden="true">→</span></span>
+              </span>
+            </a>
+          </div>
+
+          <div class="work__hud wrap" aria-hidden="true">
+            <span class="work__counter"><span class="work__current">01</span><span class="work__total">/02</span></span>
+            <span class="work__bar"><span></span></span>
+            <span class="work__hint">Défilez</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= BANDE GRAPHITE : CHIFFRES + MÉTHODE ================= -->
+      <div class="band">
+        <!-- Chiffres indicatifs : ajustez-les à vos engagements réels. -->
+        <section class="stats wrap" aria-label="Nos engagements en chiffres" data-stagger>
+          <div class="stat">
+            <span class="stat__num"><span data-count="95">95</span><small>+</small></span>
+            <span class="stat__label">Score Lighthouse visé sur chaque site livré</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num"><span data-count="7">7</span><small>j</small></span>
+            <span class="stat__label">Délai de livraison habituel, 14&nbsp;jours au maximum</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num"><span data-count="100">100</span><small>%</small></span>
+            <span class="stat__label">Sur-mesure. Aucun template, aucun thème recyclé</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num"><span data-count="15">15</span><small>min</small></span>
+            <span class="stat__label">Pour un premier appel gratuit, sans engagement</span>
+          </div>
+        </section>
+
+        <section class="process wrap" id="methode" aria-labelledby="methode-title">
+          <div class="process__aside">
+            <div class="process__sticky">
+              <span class="eyebrow"><b>(04)</b>Méthode</span>
+              <h2 class="heading-lg" id="methode-title" data-reveal="words">De l’idée à la mise en ligne, en quatre temps.</h2>
+              <p class="process__note" data-reveal="fade">Un interlocuteur unique, un prix fixe et une mise en ligne en une semaine en général&nbsp;— deux au maximum.</p>
+              <p class="process__index" aria-hidden="true"><span class="process__current">01</span><span>/04</span></p>
+            </div>
+          </div>
+          <ol class="steps">
+            <li class="step is-active">
+              <span class="step__num">01</span>
+              <div class="step__body">
+                <h3 class="step__title">Découverte</h3>
+                <p class="step__text">Un appel gratuit de 15&nbsp;minutes pour cerner votre restaurant, votre clientèle et vos objectifs. Vous repartez avec une recommandation claire et un prix fixe.</p>
+                <span class="tag">Jour 1</span>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num">02</span>
+              <div class="step__body">
+                <h3 class="step__title">Conception</h3>
+                <p class="step__text">Arborescence, wireframes puis maquettes haute fidélité. Vous validez chaque écran avant qu’une seule ligne de code ne soit écrite.</p>
+                <span class="tag">Jours 2 – 3</span>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num">03</span>
+              <div class="step__body">
+                <h3 class="step__title">Développement</h3>
+                <p class="step__text">Intégration au pixel près, animations, CMS, SEO technique et optimisation des performances. Vous suivez l’avancement en temps réel.</p>
+                <span class="tag">Jours 4 – 6</span>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num">04</span>
+              <div class="step__body">
+                <h3 class="step__title">Lancement</h3>
+                <p class="step__text">Mise en ligne, formation à l’édition de votre site et suivi des résultats pendant 30&nbsp;jours. Et ensuite&nbsp;? On continue de grandir ensemble.</p>
+                <span class="tag">Jour 7 · 14 max</span>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <!-- ================= OFFRES ================= -->
+      <section class="offers wrap" id="offres" aria-labelledby="offres-title">
+        <header class="head head--row">
+          <div class="head__main">
+            <span class="eyebrow"><b>(05)</b>Offres</span>
+            <h2 class="display-sm" id="offres-title" data-reveal="words">Des formules claires.<br>Un prix fixe.</h2>
+          </div>
+          <p class="head__aside" data-reveal="fade">Le prix annoncé est le prix payé&nbsp;: 30&nbsp;% à la commande, le solde à la livraison. Votre site est livré en une semaine en général, deux au maximum.</p>
+        </header>
+
+        <ul class="offer-list" data-stagger>
+          <li>
+            <a class="offer" href="#brief" data-type="Site vitrine" data-formule="Essentiel — 490 €">
+              <span class="offer__name">Essentiel</span>
+              <span class="offer__desc">Site vitrine jusqu’à 5&nbsp;pages<em>CMS · SEO de base · Formulaire de contact</em></span>
+              <span class="offer__time">1 à 2 semaines</span>
+              <span class="offer__price">
+                <span class="offer__amount">490&nbsp;€</span>
+                <span class="offer__split"><span>147&nbsp;€ à la commande</span><span>343&nbsp;€ à la livraison</span></span>
+              </span>
+              <span class="offer__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a class="offer offer--featured" href="#brief" data-type="Site sur-mesure" data-formule="Signature — 890 €">
+              <span class="offer__name">Signature <span class="offer__badge">Recommandé</span></span>
+              <span class="offer__desc">Site sur-mesure, pages illimitées<em>Design unique · Animations · SEO avancé</em></span>
+              <span class="offer__time">1 à 2 semaines</span>
+              <span class="offer__price">
+                <span class="offer__amount">890&nbsp;€</span>
+                <span class="offer__split"><span>267&nbsp;€ à la commande</span><span>623&nbsp;€ à la livraison</span></span>
+              </span>
+              <span class="offer__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a class="offer" href="#brief" data-type="E-commerce" data-formule="Commerce — 1 490 €">
+              <span class="offer__name">Commerce</span>
+              <span class="offer__desc">Boutique en ligne complète<em>Shopify ou WooCommerce · Paiement · Formation</em></span>
+              <span class="offer__time">1 à 2 semaines</span>
+              <span class="offer__price">
+                <span class="offer__amount">1&#8239;490&nbsp;€</span>
+                <span class="offer__split"><span>447&nbsp;€ à la commande</span><span>1&#8239;043&nbsp;€ à la livraison</span></span>
+              </span>
+              <span class="offer__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ================= FAQ ================= -->
+      <section class="faq wrap" aria-labelledby="faq-title">
+        <div class="faq__aside">
+          <span class="eyebrow"><b>(06)</b>Questions</span>
+          <h2 class="heading-lg" id="faq-title" data-reveal="words">Vous vous demandez sûrement…</h2>
+        </div>
+        <div class="faq__list" data-stagger>
+          <div class="faq__item">
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1">Combien coûte un site web&nbsp;?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-1" role="region"><p>Trois formules à prix fixe&nbsp;: 490&nbsp;€, 890&nbsp;€ et 1&#8239;490&nbsp;€. Vous réglez 30&nbsp;% à la commande et le solde à la livraison&nbsp;: pas de surprise, pas de dépassement.</p></div>
+          </div>
+          <div class="faq__item">
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2">En combien de temps mon site sera-t-il en ligne&nbsp;?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-2" role="region"><p>En général une semaine, deux semaines au maximum. Le planning est fixé dès notre premier appel.</p></div>
+          </div>
+          <div class="faq__item">
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-3">Pourrai-je modifier mon site moi-même&nbsp;?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-3" role="region"><p>Oui. Nous livrons un CMS simple (Webflow, WordPress ou Shopify) et une formation pour modifier textes, images et pages en toute autonomie.</p></div>
+          </div>
+          <div class="faq__item">
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-4">Le référencement est-il inclus&nbsp;?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-4" role="region"><p>Toujours. Structure technique, balisage, vitesse, métadonnées et Google Search Console sont configurés avant la mise en ligne.</p></div>
+          </div>
+          <div class="faq__item">
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-5">Et après la mise en ligne&nbsp;?<span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-5" role="region"><p>Nous assurons 30&nbsp;jours de suivi offert, puis proposons une maintenance mensuelle&nbsp;: hébergement, sauvegardes, mises à jour et petites évolutions.</p></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= CONTACT (le prisme réapparaît) ================= -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact__inner wrap">
+        <span class="eyebrow"><b>(07)</b>Contact</span>
+        <h2 class="contact__title" id="contact-title" data-reveal="words">Parlons de<br>votre projet.</h2>
+        <div class="contact__row">
+          <p class="contact__lead" data-reveal="fade">Un appel gratuit de 15&nbsp;minutes, sans engagement, pour parler de votre restaurant. Par e-mail ou sur WhatsApp au 07&nbsp;43&nbsp;66&nbsp;43&nbsp;43.</p>
+          <div class="contact__actions" data-reveal="fade">
+            <a class="contact__mail" href="mailto:maisonnovadigital@gmail.com" data-cursor-label="Écrire">maisonnovadigital@gmail.com</a>
+            <a class="btn btn--outline btn--lg" href="https://calendly.com/maisonnovadigital/appel-decouverte-de-15-min" target="_blank" rel="noopener" data-viewer data-viewer-title="Appel découverte · 15 min" data-magnetic><span data-roll>Réserver mon appel gratuit de 15 min</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="content content--end">
+      <!-- ================= BRIEF EXPRESS ================= -->
+      <section class="brief wrap" id="brief" aria-labelledby="brief-title">
+        <div class="brief__aside">
+          <span class="eyebrow"><b>(08)</b>Brief express</span>
+          <h2 class="heading-lg" id="brief-title" data-reveal="words">Votre projet en 30&nbsp;secondes.</h2>
+          <p class="brief__note" data-reveal="fade">Quelques infos suffisent pour préparer votre appel gratuit de 15&nbsp;minutes. Nous revenons vers vous avec une recommandation claire.</p>
+        </div>
+
+        <!-- Le formulaire ouvre la messagerie du visiteur (mailto). Branchez-le sur Formspree, Netlify Forms ou votre back-end si besoin. -->
+        <form class="brief__form" data-mailto="maisonnovadigital@gmail.com" novalidate>
+          <fieldset class="brief__group">
+            <legend>Type de projet</legend>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="type" value="Site vitrine"><span>Site vitrine</span></label>
+              <label class="choice"><input type="checkbox" name="type" value="Site sur-mesure"><span>Site sur-mesure</span></label>
+              <label class="choice"><input type="checkbox" name="type" value="E-commerce"><span>E-commerce</span></label>
+              <label class="choice"><input type="checkbox" name="type" value="Refonte"><span>Refonte</span></label>
+              <label class="choice"><input type="checkbox" name="type" value="Landing page"><span>Landing page</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="brief__group">
+            <legend>Formule</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="formule" value="Essentiel — 490 €"><span>Essentiel · 490&nbsp;€</span></label>
+              <label class="choice"><input type="radio" name="formule" value="Signature — 890 €"><span>Signature · 890&nbsp;€</span></label>
+              <label class="choice"><input type="radio" name="formule" value="Commerce — 1 490 €"><span>Commerce · 1&#8239;490&nbsp;€</span></label>
+              <label class="choice"><input type="radio" name="formule" value="Je ne sais pas encore"><span>Je ne sais pas encore</span></label>
+            </div>
+          </fieldset>
+          <div class="field"><input id="f-name" name="name" type="text" autocomplete="name" placeholder=" " required><label for="f-name">Votre nom</label></div>
+          <div class="field"><input id="f-email" name="email" type="email" autocomplete="email" placeholder=" " required><label for="f-email">Adresse e-mail</label></div>
+          <div class="field field--full"><input id="f-company" name="company" type="text" autocomplete="organization" placeholder=" "><label for="f-company">Entreprise (facultatif)</label></div>
+          <div class="field field--full"><textarea id="f-msg" name="message" rows="3" placeholder=" "></textarea><label for="f-msg">Parlez-nous de votre projet</label></div>
+          <div class="brief__submit">
+            <button class="btn btn--outline btn--lg" type="submit" data-magnetic><span data-roll>Envoyer la demande</span></button>
+            <p class="brief__status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- ================= PIED DE PAGE ================= -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__top">
+        <div class="footer__col">
+          <span class="footer__brand">Nova Web</span>
+          <p class="footer__tagline">Sites web pour les restaurants indépendants de Lyon.</p>
+          <a class="footer__big" href="mailto:maisonnovadigital@gmail.com" data-roll>maisonnovadigital@gmail.com</a>
+          <a class="footer__link" href="https://wa.me/33743664343" target="_blank" rel="noopener" data-roll>WhatsApp : 07 43 66 43 43</a>
+          <a class="btn btn--outline btn--lg footer__cta" href="https://calendly.com/maisonnovadigital/appel-decouverte-de-15-min" target="_blank" rel="noopener" data-viewer data-viewer-title="Appel découverte · 15 min" data-magnetic><span data-roll>Réserver mon appel gratuit de 15 min</span></a>
+        </div>
+        <div class="footer__cols">
+          <div>
+            <span class="eyebrow eyebrow--muted">Explorer</span>
+            <ul class="footer__list">
+              <li><a href="#expertise" data-roll>Expertise</a></li>
+              <li><a href="#projets" data-roll>Projets</a></li>
+              <li><a href="#methode" data-roll>Méthode</a></li>
+              <li><a href="#offres" data-roll>Offres</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="eyebrow eyebrow--muted">Lyon</span>
+            <p class="footer__time"><time class="js-clock" data-seconds>--:--:--</time></p>
+            <a class="footer__link" href="#top" data-roll>Retour en haut ↑</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__bottom">
+        <span>© <span class="js-year">2026</span> Nova Web</span>
+        <a class="footer__legal" href="mentions-legales.html" data-roll>Mentions légales</a>
+      </div>
+    </div>
+    <div class="footer__word" aria-hidden="true">Nova Web</div>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+  <script defer src="js/prism.js"></script>
+  <script defer src="js/main.js"></script>
+</body>
+</html>
