@@ -1,0 +1,21 @@
+# dépendances
+/node_modules
+
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# base de données locale (PGlite) et caches
+/.data/
+
+# environnement (contient des secrets)
+.env
+.env.local
+.env.*.local
+
+# divers
+.DS_Store
+npm-debug.log*
+/coverage

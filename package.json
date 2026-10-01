@@ -1,0 +1,50 @@
+{
+  "name": "nova-web-prospector",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nova Web Prospector — outil interne de prospection B2B de l'agence Nova Web",
+  "scripts": {
+    "setup": "node scripts/setup-env.mjs",
+    "dev": "node scripts/next.mjs dev",
+    "build": "node scripts/next.mjs build",
+    "start": "node scripts/next.mjs start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node --use-system-ca --env-file-if-exists=.env.local --import tsx scripts/migrate.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@dnd-kit/core": "^6.3.1",
+    "@electric-sql/pglite": "^0.5.8",
+    "cheerio": "^1.2.0",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.3",
+    "jose": "^6.2.12",
+    "libphonenumber-js": "^1.13.14",
+    "lucide-react": "^1.49.0",
+    "next": "16.3.8",
+    "nodemailer": "^10.0.13",
+    "postgres": "^3.4.9",
+    "radix-ui": "^1.6.7",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "recharts": "^3.10.1",
+    "robots-parser": "^3.0.1",
+    "sonner": "^2.0.8",
+    "tailwind-merge": "^3.7.0",
+    "undici": "^8.11.2",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.11",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4",
+    "typescript": "^5",
+    "vitest": "^5.0.3"
+  }
+}
